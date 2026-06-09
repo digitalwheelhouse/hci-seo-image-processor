@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Wheelhouse — SEO Image Processor · Hill Country Interiors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/piexifjs@1.0.6/piexif.js"></script>
+<style>
+  :root {
+    /* ── DIGITAL WHEELHOUSE BRAND ── */
+    --midnight: #0A0F1C;
+    --charcoal: #0F172A;
+    --slate: #1E293B;
+    --steel: #334155;
+    --teal: #37A9AF;
+    --teal-light: #5EC6CC;
+    --teal-glow: rgba(55, 169, 175, 0.15);
+    --neon-green: #00FF87;
+    --neon-cyan: #00E0FF;
+    --neon-purple: #7B61FF;
+    --neon-matrix: linear-gradient(135deg, #00FF87 0%, #00E0FF 50%, #7B61FF 100%);
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    --white: #FFFFFF;
+    --off-white: #F8FAFC;
+    --light-gray: #E2E8F0;
+    --mid-gray: #94A3B8;
+    --dark-gray: #64748B;
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'DM Sans', -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--midnight); color: var(--white); font-family: var(--font-body); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  body {
+    background:
+      radial-gradient(ellipse 600px 600px at top right, rgba(0,224,255,0.06), transparent 60%),
+      radial-gradient(ellipse 500px 500px at bottom left, rgba(123,97,255,0.05), transparent 60%),
+      var(--midnight);
+    background-attachment: fixed;
+    line-height: 1.6;
+  }
+  .mono { font-family: var(--font-mono); }
+
+  header {
+    padding: 28px 36px 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .brand-lockup { display: flex; align-items: center; gap: 14px; }
+  .brand-icon {
+    width: 38px; height: 38px;
+    border-radius: 9px;
+    background: var(--midnight);
+    border: 1px solid rgba(0,224,255,0.22);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(0,224,255,0.18);
+    overflow: hidden;
+  }
+  .brand-icon img { width: 58%; height: 58%; display: block; }
+  h1 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin: 0;
+    line-height: 1.1;
+  }
+  h1 .gradient {
+    background: var(--neon-matrix);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  h1 .sub-product {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-top: 4px;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dark-gray);
+  }
+  .header-right { display: flex; align-items: center; gap: 16px; text-align: right; }
+
+  main { padding: 28px 36px 80px; max-width: 1600px; margin: 0 auto; }
+  .grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (max-width: 980px) { .grid { grid-template-columns: 1fr; } }
+
+  .panel {
+    background: var(--charcoal);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .panel h2 {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin: 0 0 18px;
+    font-weight: 500;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin: 16px 0 6px;
+  }
+  input[type="text"], input[type="url"], input[type="password"], textarea, select {
+    width: 100%;
+    background: var(--slate);
+    border: 1px solid var(--steel);
+    color: var(--white);
+    padding: 10px 12px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    border-radius: 8px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px var(--teal-glow);
+  }
+  textarea { resize: vertical; min-height: 62px; line-height: 1.5; }
+  .hint {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--dark-gray);
+    margin-top: 5px;
+    line-height: 1.5;
+  }
+  button {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 0.2px;
+    background: var(--slate);
+    color: var(--white);
+    border: 1px solid var(--steel);
+    padding: 11px 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.15s;
+    font-weight: 600;
+  }
+  button:hover { border-color: var(--teal); color: var(--teal-light); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  button.ghost { background: transparent; border-color: var(--steel); color: var(--mid-gray); }
+  button.ghost:hover { background: rgba(255,255,255,0.03); border-color: var(--teal); color: var(--teal); }
+  button.small { padding: 7px 12px; font-size: 11px; }
+  button.primary {
+    background: linear-gradient(135deg, #00FF87 0%, #00E0FF 100%);
+    color: var(--midnight);
+    border: none;
+    font-weight: 700;
+  }
+  button.primary:hover { filter: brightness(1.08); color: var(--midnight); }
+
+  .dropzone {
+    border: 2px dashed var(--steel);
+    border-radius: 12px;
+    padding: 48px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--slate);
+  }
+  .dropzone:hover, .dropzone.drag {
+    border-color: var(--teal);
+    background: var(--teal-glow);
+  }
+  .dropzone .big {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .row > * { flex: 1; min-width: 0; }
+  .row > button { flex: 0 0 auto; }
+
+  .images-list { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
+  .img-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 14px;
+    padding: 12px;
+    background: var(--slate);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    align-items: center;
+  }
+  .img-row.done { border-left: 3px solid var(--neon-green); }
+  .img-row.error { border-left: 3px solid var(--danger); }
+  .img-row.processing { border-left: 3px solid var(--neon-cyan); }
+  .thumb {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: var(--midnight);
+  }
+  .img-meta { min-width: 0; }
+  .img-meta .name {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--light-gray);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 4px;
+  }
+  .img-meta .new-name {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--teal-light);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 4px;
+  }
+  .img-meta input.rename {
+    width: 100%;
+    margin-top: 2px;
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+  .img-meta .specs {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--dark-gray);
+    letter-spacing: 0.05em;
+  }
+  .badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 5px;
+    background: var(--steel);
+    color: var(--light-gray);
+    margin-right: 4px;
+  }
+  .badge.cyan { background: rgba(0,224,255,0.15); color: var(--neon-cyan); }
+  .badge.success { background: rgba(0,255,135,0.15); color: var(--neon-green); }
+  .badge.danger { background: rgba(239,68,68,0.15); color: var(--danger); }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--dark-gray);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 17px;
+  }
+
+  .actions-bar {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    flex-wrap: wrap;
+  }
+  .stats {
+    display: flex;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--mid-gray);
+    margin-left: auto;
+    align-items: center;
+  }
+  .stats strong { color: var(--teal); font-weight: 500; }
+
+  .pattern-help {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--dark-gray);
+    background: var(--midnight);
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-top: 6px;
+    line-height: 1.7;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .pattern-help code { color: var(--teal-light); }
+
+  .pill-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .pill {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 5px 10px;
+    background: var(--slate);
+    border: 1px solid var(--steel);
+    border-radius: 14px;
+    color: var(--mid-gray);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .pill:hover { border-color: var(--teal); color: var(--teal); }
+  .pill.active { background: var(--teal); color: var(--midnight); border-color: var(--teal); font-weight: 500; }
+
+  .removebtn {
+    background: transparent;
+    border: 1px solid var(--steel);
+    color: var(--dark-gray);
+    padding: 5px 10px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.05em;
+    border-radius: 6px;
+  }
+  .removebtn:hover { border-color: var(--danger); color: var(--danger); background: transparent; }
+
+  .notice {
+    background: rgba(0,224,255,0.05);
+    border: 1px solid rgba(0,224,255,0.12);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 8px;
+  }
+  .notice .notice-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--neon-cyan);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .notice p { font-family: var(--font-body); font-size: 13px; color: var(--mid-gray); line-height: 1.6; margin: 0; }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--charcoal);
+    border: 1px solid var(--teal);
+    color: var(--white);
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    z-index: 1000;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    animation: slideIn 0.3s ease;
+  }
+  @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+  .footer-note {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 36px 48px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--dark-gray);
+    letter-spacing: 0.04em;
+  }
+  .footer-note strong { color: var(--teal); font-weight: 500; }
+
+  /* ===== Why-this-matters explainer ===== */
+  .explainer {
+    background: linear-gradient(135deg, var(--charcoal) 0%, rgba(0,224,255,0.05) 100%);
+    border: 1px solid rgba(0,224,255,0.12);
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin-bottom: 28px;
+  }
+  .explainer-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--neon-cyan);
+    margin-bottom: 14px;
+  }
+  .explainer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 26px;
+  }
+  @media (max-width: 980px) { .explainer-grid { grid-template-columns: 1fr; } }
+  .explainer-grid h3 {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    margin: 0 0 6px;
+  }
+  .explainer-grid p {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--mid-gray);
+    line-height: 1.65;
+    margin: 0;
+  }
+  .explainer code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--teal-light);
+    background: var(--midnight);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+  .explainer-foot {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--dark-gray);
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+  .explainer-foot strong { color: var(--teal); font-weight: 500; }
+
+  /* ===== Login gate (DW themed) ===== */
+  #login-overlay {
+    position: fixed; inset: 0; z-index: 2000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    background:
+      radial-gradient(ellipse 700px 700px at top right, rgba(0,224,255,0.07), transparent 60%),
+      radial-gradient(ellipse 600px 600px at bottom left, rgba(123,97,255,0.06), transparent 60%),
+      var(--midnight);
+  }
+  #login-card {
+    width: 390px; max-width: 100%;
+    background: var(--charcoal);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 18px;
+    padding: 40px 34px 34px;
+    text-align: center;
+  }
+  #login-card .brand-icon-lg {
+    width: 52px; height: 52px;
+    border-radius: 13px;
+    background: var(--midnight);
+    border: 1px solid rgba(0,224,255,0.22);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 22px;
+    box-shadow: 0 0 32px rgba(0,224,255,0.22);
+    overflow: hidden;
+  }
+  #login-card .brand-icon-lg img { width: 58%; height: 58%; display: block; }
+  #login-card .wordmark {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  #login-card .wordmark .gradient {
+    background: var(--neon-matrix);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  #login-card .login-sub {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dark-gray);
+    margin-bottom: 26px;
+  }
+  #login-card input { text-align: center; }
+  #login-card button { width: 100%; margin-top: 16px; }
+  #login-error { color: var(--danger); font-family: var(--font-mono); font-size: 11px; min-height: 16px; margin-top: 12px; }
+  #app { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ===================== LOGIN GATE ===================== -->
+<div id="login-overlay">
+  <div id="login-card">
+    <div class="brand-icon-lg"><img src="dw-icon-white.svg" alt="Digital Wheelhouse"></div>
+    <div class="wordmark">Digital <span class="gradient">Wheelhouse</span></div>
+    <div class="login-sub">SEO Image Processor · Team Access</div>
+    <form id="login-form">
+      <input type="password" id="login-password" placeholder="Team password" autocomplete="current-password" autofocus>
+      <button type="submit" class="primary">Unlock</button>
+    </form>
+    <div id="login-error"></div>
+  </div>
+</div>
+
+<!-- ===================== APP ===================== -->
+<div id="app">
+<header>
+  <div class="brand-lockup">
+    <div class="brand-icon"><img src="dw-icon-white.svg" alt="Digital Wheelhouse"></div>
+    <h1>
+      Digital <span class="gradient">Wheelhouse</span>
+      <span class="sub-product">SEO Image Processor</span>
+    </h1>
+  </div>
+  <div class="header-right">
+    <div class="tag" style="color:var(--teal)">digitalwheelhouse.com</div>
+    <button class="ghost small" onclick="logout()">Log out</button>
+  </div>
+</header>
+
+<main>
+
+<div class="explainer">
+  <div class="explainer-label">Why this matters</div>
+  <div class="explainer-grid">
+    <div>
+      <h3>Descriptive filenames get found</h3>
+      <p>Google and Google Images read the filename. <code>rustic-leather-recliner-western.webp</code> tells search engines exactly what the photo is — <code>IMG_4821.jpg</code> tells them nothing. Properly named images are far more likely to surface in search and pull shoppers and readers to your product and blog pages.</p>
+    </div>
+    <div>
+      <h3>Lighter images load faster</h3>
+      <p>Converting to WebP and resizing makes each file ~30% smaller with no visible quality loss. Faster pages mean better Core Web Vitals, higher rankings, and fewer visitors leaving before the page even loads — on product pages and blog posts alike.</p>
+    </div>
+  </div>
+  <div class="explainer-foot"><strong>Run every product photo and blog image through this</strong> before you save and upload it to your website. Clean name in, web-optimized file out.</div>
+</div>
+
+<div class="grid">
+
+  <!-- LEFT: CONTROLS -->
+  <section>
+
+    <div class="panel">
+      <h2>① Ownership &amp; SEO Metadata</h2>
+
+      <label>Brand / Company</label>
+      <input type="text" id="meta-brand" value="Hill Country Interiors">
+
+      <label>Website URL</label>
+      <input type="url" id="meta-url" value="https://hillcountryinteriors.com">
+
+      <label>Copyright Notice</label>
+      <input type="text" id="meta-copyright" value="© 2026 Hill Country Interiors. All rights reserved.">
+
+      <label>Author / Creator</label>
+      <input type="text" id="meta-author" value="Hill Country Interiors">
+
+      <label>Contact Email</label>
+      <input type="text" id="meta-email" value="brandon@hillcountryinteriors.com">
+
+      <label>Default Keywords (comma-separated)</label>
+      <textarea id="meta-keywords">upscale leather furniture, rustic furniture, Western furniture, old-world furniture, Hill Country Interiors</textarea>
+    </div>
+
+    <div class="panel" style="margin-top:20px">
+      <h2>② Per-Image Content (SEO)</h2>
+      <p class="hint" style="margin-top:-8px">These get embedded individually. Use placeholders to auto-fill from filename.</p>
+
+      <label>Title Template</label>
+      <input type="text" id="meta-title-tpl" value="{name} | Hill Country Interiors">
+
+      <label>Description / Alt-Text Template</label>
+      <textarea id="meta-desc-tpl">{name} — from Hill Country Interiors. Upscale leather, rustic, Western, and old-world furniture, made to last.</textarea>
+      <div class="pattern-help">Placeholders: <code>{name}</code> <code>{brand}</code> <code>{date}</code> <code>{index}</code></div>
+    </div>
+
+    <div class="panel" style="margin-top:20px">
+      <h2>③ Output Settings (Web-optimized)</h2>
+
+      <label>Format</label>
+      <div class="pill-row" id="format-pills">
+        <span class="pill active" data-format="webp">WebP (recommended)</span>
+        <span class="pill" data-format="jpeg">JPEG</span>
+      </div>
+      <div class="hint" style="margin-top:8px">WebP is ~30% smaller than JPEG and loads faster → better Core Web Vitals → better SEO. Supported everywhere modern.</div>
+
+      <label>Max Dimension (longest side)</label>
+      <select id="max-dim">
+        <option value="2048" selected>2048px — High-res (zoomable)</option>
+        <option value="2400">2400px — Hero / full-bleed</option>
+        <option value="1600">1600px — Standard product</option>
+        <option value="1200">1200px — Collection / blog thumbnails</option>
+        <option value="800">800px — Small / mobile</option>
+        <option value="0">Don't resize</option>
+      </select>
+
+      <label>Quality</label>
+      <select id="quality">
+        <option value="0.92" selected>92% — High (recommended)</option>
+        <option value="0.85">85% — Balanced</option>
+        <option value="0.75">75% — Smaller files</option>
+      </select>
+    </div>
+
+    <div class="panel" style="margin-top:20px">
+      <h2>④ Bulk Rename</h2>
+
+      <label>Mode</label>
+      <select id="rename-mode" onchange="updateRenameUI()">
+        <option value="pattern" selected>Pattern (template)</option>
+        <option value="ai">AI suggests names (uses Claude)</option>
+        <option value="manual">Manual one-by-one</option>
+        <option value="original">Keep original names</option>
+      </select>
+
+      <div id="pattern-controls">
+        <label>Filename Pattern</label>
+        <input type="text" id="pattern" value="{base}-{manufacturer}-{color}-{seq}">
+        <div class="pattern-help">
+          Placeholders:<br>
+          <code>{base}</code> original filename (clean)<br>
+          <code>{seq}</code> 01, 02, 03...<br>
+          <code>{manufacturer}</code> · <code>{color}</code> · <code>{style}</code> · <code>{product}</code> · <code>{room}</code> (uses fields below)<br>
+          <code>{date}</code> <code>{brand}</code>
+        </div>
+
+        <label>Manufacturer / Maker (optional)</label>
+        <input type="text" id="ph-manufacturer" placeholder="maker or collection name...">
+
+        <label>Color / Finish (optional)</label>
+        <input type="text" id="ph-color" placeholder="cognac, espresso, walnut, tan...">
+
+        <label>Style (optional)</label>
+        <input type="text" id="ph-style" placeholder="rustic, western, old-world, upscale-leather...">
+
+        <label>Product Type (optional)</label>
+        <input type="text" id="ph-product" placeholder="sofa, recliner, dining-table, console, bed...">
+
+        <label>Room (optional)</label>
+        <input type="text" id="ph-room" placeholder="living-room, dining-room, bedroom, lodge...">
+      </div>
+
+      <div id="ai-controls" style="display:none">
+        <div class="notice">
+          <div class="notice-label">Secure AI naming</div>
+          <p>AI naming examines each image and suggests an SEO-friendly filename. The request runs through this Digital Wheelhouse server, so the Anthropic API key stays server-side — never exposed in the browser.</p>
+        </div>
+
+        <label>Naming Style</label>
+        <select id="ai-style">
+          <option value="ecom">Ecom-SEO (e.g. rustic-leather-recliner-western-lodge)</option>
+          <option value="descriptive">Descriptive (e.g. distressed-oak-dining-table-old-world)</option>
+          <option value="minimal">Minimal keywords (e.g. western-leather-sofa)</option>
+        </select>
+      </div>
+
+      <div id="manual-hint" style="display:none">
+        <p class="hint">After uploading, you'll see an input next to each image to type its new name.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT: WORKSPACE -->
+  <section>
+    <div class="panel">
+      <h2>⑤ Images</h2>
+
+      <div class="dropzone" id="dropzone">
+        <div class="big">Drop images here</div>
+        <div class="hint">or click to browse · JPG, PNG, WebP, TIFF · unlimited bulk</div>
+        <input type="file" id="file-input" multiple accept="image/*" style="display:none">
+      </div>
+
+      <div class="actions-bar">
+        <button class="primary" id="process-btn" onclick="processAll()" disabled>▸ Process &amp; Download All</button>
+        <button class="ghost" onclick="clearAll()" id="clear-btn" disabled>Clear All</button>
+        <button class="ghost" onclick="previewNames()" id="preview-btn" disabled>Preview Names</button>
+        <div class="stats">
+          <span><strong id="count">0</strong> images</span>
+          <span><strong id="size">0</strong> MB</span>
+          <span><strong id="done-count">0</strong> done</span>
+        </div>
+      </div>
+
+      <div class="images-list" id="images-list">
+        <div class="empty-state">No images loaded yet. Drop some in.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<div class="footer-note">
+  <strong>Digital Wheelhouse SEO Image Processor</strong> — secure team tool. Images are processed in your browser; only the image bytes for AI naming are sent to the server, which keeps the Anthropic key private.
+</div>
+</div>
+
+<script>
+// ============ AUTH GATE ============
+const loginOverlay = document.getElementById('login-overlay');
+const appEl = document.getElementById('app');
+const loginForm = document.getElementById('login-form');
+const loginError = document.getElementById('login-error');
+
+function showApp() {
+  loginOverlay.style.display = 'none';
+  appEl.style.display = 'block';
+}
+function showLogin() {
+  loginOverlay.style.display = 'flex';
+  appEl.style.display = 'none';
+  document.getElementById('login-password').focus();
+}
+
+async function checkSession() {
+  try {
+    const r = await fetch('/api/session', { credentials: 'same-origin' });
+    const { authed } = await r.json();
+    if (authed) showApp(); else showLogin();
+  } catch { showLogin(); }
+}
+
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  loginError.textContent = '';
+  const password = document.getElementById('login-password').value;
+  try {
+    const r = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ password }),
+    });
+    if (r.ok) {
+      document.getElementById('login-password').value = '';
+      showApp();
+    } else {
+      loginError.textContent = 'Wrong password. Try again.';
+    }
+  } catch {
+    loginError.textContent = 'Could not reach the server.';
+  }
+});
+
+async function logout() {
+  try { await fetch('/api/logout', { method: 'POST', credentials: 'same-origin' }); } catch {}
+  images = [];
+  render();
+  updateStats();
+  showLogin();
+}
+
+checkSession();
+
+// ============ STATE ============
+let images = []; // {id, file, dataUrl, width, height, status, newName, customName, aiSuggested, processedBlob, processedSize}
+let outputFormat = 'webp';
+let nextId = 1;
+
+// ============ DOM HOOKS ============
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('file-input');
+const imagesList = document.getElementById('images-list');
+
+dropzone.addEventListener('click', () => fileInput.click());
+dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('drag'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag'));
+dropzone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropzone.classList.remove('drag');
+  handleFiles(e.dataTransfer.files);
+});
+fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+document.querySelectorAll('#format-pills .pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('#format-pills .pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+    outputFormat = p.dataset.format;
+    render();
+  });
+});
+
+function updateRenameUI() {
+  const mode = document.getElementById('rename-mode').value;
+  document.getElementById('pattern-controls').style.display = mode === 'pattern' ? 'block' : 'none';
+  document.getElementById('ai-controls').style.display = mode === 'ai' ? 'block' : 'none';
+  document.getElementById('manual-hint').style.display = mode === 'manual' ? 'block' : 'none';
+  render();
+}
+
+// ============ FILE INTAKE ============
+async function handleFiles(fileList) {
+  const files = Array.from(fileList).filter(f => f.type.startsWith('image/'));
+  for (const f of files) {
+    const id = nextId++;
+    const dataUrl = await readFileAsDataURL(f);
+    const dims = await getImageDims(dataUrl);
+    images.push({
+      id,
+      file: f,
+      dataUrl,
+      width: dims.w,
+      height: dims.h,
+      status: 'ready',
+      customName: '',
+      aiSuggested: '',
+      processedBlob: null,
+      processedSize: 0
+    });
+  }
+  render();
+  updateStats();
+}
+
+function readFileAsDataURL(file) {
+  return new Promise((res, rej) => {
+    const fr = new FileReader();
+    fr.onload = () => res(fr.result);
+    fr.onerror = rej;
+    fr.readAsDataURL(file);
+  });
+}
+
+function getImageDims(dataUrl) {
+  return new Promise((res) => {
+    const img = new Image();
+    img.onload = () => res({ w: img.naturalWidth, h: img.naturalHeight });
+    img.src = dataUrl;
+  });
+}
+
+// ============ RENDER ============
+function render() {
+  if (images.length === 0) {
+    imagesList.innerHTML = '<div class="empty-state">No images loaded yet. Drop some in.</div>';
+    document.getElementById('process-btn').disabled = true;
+    document.getElementById('clear-btn').disabled = true;
+    document.getElementById('preview-btn').disabled = true;
+    return;
+  }
+  document.getElementById('process-btn').disabled = false;
+  document.getElementById('clear-btn').disabled = false;
+  document.getElementById('preview-btn').disabled = false;
+  const mode = document.getElementById('rename-mode').value;
+  imagesList.innerHTML = images.map((img, idx) => {
+    const sizeMB = (img.file.size / 1024 / 1024).toFixed(2);
+    const ext = outputFormat === 'webp' ? '.webp' : '.jpg';
+    const newName = computeNewName(img, idx, mode) + ext;
+    const procInfo = img.processedBlob
+      ? `<span class="badge success">${(img.processedSize / 1024 / 1024).toFixed(2)} MB</span>`
+      : '';
+    const statusBadge = img.status === 'processing' ? '<span class="badge cyan">PROCESSING</span>'
+                       : img.status === 'done' ? '<span class="badge success">DONE</span>'
+                       : img.status === 'error' ? '<span class="badge danger">ERROR</span>'
+                       : '';
+    let manualInput = '';
+    if (mode === 'manual') {
+      manualInput = `<input type="text" class="rename" placeholder="enter name (no extension)" value="${img.customName}" oninput="updateCustomName(${img.id}, this.value)">`;
+    }
+    return `
+      <div class="img-row ${img.status}">
+        <img class="thumb" src="${img.dataUrl}" alt="">
+        <div class="img-meta">
+          <div class="name" title="${img.file.name}">${img.file.name}</div>
+          <div class="new-name" title="${newName}">→ ${newName}</div>
+          ${manualInput}
+          <div class="specs">${img.width}×${img.height} · ${sizeMB} MB · ${img.file.type.split('/')[1].toUpperCase()} ${statusBadge} ${procInfo}</div>
+        </div>
+        <button class="removebtn" onclick="removeImage(${img.id})">Remove</button>
+      </div>
+    `;
+  }).join('');
+}
+
+function updateCustomName(id, value) {
+  const img = images.find(i => i.id === id);
+  if (img) img.customName = value;
+}
+
+function removeImage(id) {
+  images = images.filter(i => i.id !== id);
+  render();
+  updateStats();
+}
+
+function clearAll() {
+  images = [];
+  render();
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById('count').textContent = images.length;
+  const totalMB = images.reduce((s, i) => s + i.file.size, 0) / 1024 / 1024;
+  document.getElementById('size').textContent = totalMB.toFixed(1);
+  document.getElementById('done-count').textContent = images.filter(i => i.status === 'done').length;
+}
+
+// ============ NAMING ============
+function slugify(s) {
+  return (s || '').toString().toLowerCase().trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+function getBaseName(filename) {
+  return filename.replace(/\.[^.]+$/, '');
+}
+
+function computeNewName(img, idx, mode) {
+  if (mode === 'original') return slugify(getBaseName(img.file.name));
+  if (mode === 'manual') return img.customName ? slugify(img.customName) : slugify(getBaseName(img.file.name));
+  if (mode === 'ai') return img.aiSuggested || slugify(getBaseName(img.file.name));
+
+  // pattern
+  const pattern = document.getElementById('pattern').value || '{base}-{seq}';
+  const phs = {
+    base: slugify(getBaseName(img.file.name)),
+    seq: String(idx + 1).padStart(2, '0'),
+    manufacturer: slugify(document.getElementById('ph-manufacturer').value),
+    color: slugify(document.getElementById('ph-color').value),
+    style: slugify(document.getElementById('ph-style').value),
+    product: slugify(document.getElementById('ph-product').value),
+    room: slugify(document.getElementById('ph-room').value),
+    date: new Date().toISOString().slice(0, 10),
+    brand: slugify(document.getElementById('meta-brand').value),
+  };
+  let result = pattern;
+  for (const [k, v] of Object.entries(phs)) {
+    result = result.replace(new RegExp('\\{' + k + '\\}', 'g'), v || '');
+  }
+  return slugify(result);
+}
+
+function previewNames() {
+  showToast('Names previewed in the list below');
+  render();
+}
+
+// ============ AI NAMING (secure backend) ============
+async function generateAINames() {
+  const style = document.getElementById('ai-style').value;
+  const brand = document.getElementById('meta-brand').value;
+
+  for (const img of images) {
+    if (img.aiSuggested) continue;
+    img.status = 'processing';
+    render();
+    try {
+      const base64 = img.dataUrl.split(',')[1];
+      const mediaType = img.file.type;
+      const response = await fetch('/api/suggest-name', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ imageBase64: base64, mediaType, style, brand })
+      });
+
+      if (response.status === 401) {
+        showToast('Session expired — please log in again');
+        showLogin();
+        return false;
+      }
+
+      const data = await response.json();
+      if (response.ok && data.name) {
+        img.aiSuggested = slugify(data.name);
+        img.status = 'ready';
+      } else {
+        img.status = 'error';
+        console.error('AI naming error:', data);
+      }
+    } catch (e) {
+      img.status = 'error';
+      console.error(e);
+    }
+    render();
+  }
+  return true;
+}
+
+// ============ METADATA EMBEDDING ============
+function buildExifBytes(img, idx, finalName) {
+  const brand = document.getElementById('meta-brand').value;
+  const url = document.getElementById('meta-url').value;
+  const copyright = document.getElementById('meta-copyright').value;
+  const author = document.getElementById('meta-author').value;
+  const email = document.getElementById('meta-email').value;
+  const keywords = document.getElementById('meta-keywords').value;
+  const titleTpl = document.getElementById('meta-title-tpl').value;
+  const descTpl = document.getElementById('meta-desc-tpl').value;
+
+  const replacers = {
+    name: finalName.replace(/-/g, ' '),
+    brand,
+    date: new Date().toISOString().slice(0, 10),
+    index: String(idx + 1)
+  };
+  const fill = (tpl) => {
+    let r = tpl;
+    for (const [k, v] of Object.entries(replacers)) r = r.replace(new RegExp('\\{' + k + '\\}', 'g'), v);
+    return r;
+  };
+  const title = fill(titleTpl);
+  const desc = fill(descTpl);
+
+  const zeroth = {};
+  const exif = {};
+  zeroth[piexif.ImageIFD.Artist] = author;
+  zeroth[piexif.ImageIFD.Copyright] = copyright;
+  zeroth[piexif.ImageIFD.ImageDescription] = desc;
+  zeroth[piexif.ImageIFD.Software] = brand + ' SEO Image Processor';
+  zeroth[piexif.ImageIFD.XPTitle] = stringToUTF16Bytes(title);
+  zeroth[piexif.ImageIFD.XPAuthor] = stringToUTF16Bytes(author);
+  zeroth[piexif.ImageIFD.XPComment] = stringToUTF16Bytes(`${url} | ${email}`);
+  zeroth[piexif.ImageIFD.XPKeywords] = stringToUTF16Bytes(keywords);
+  zeroth[piexif.ImageIFD.XPSubject] = stringToUTF16Bytes(title);
+  zeroth[piexif.ImageIFD.HostComputer] = url;
+  exif[piexif.ExifIFD.UserComment] = `ASCII\0\0\0${copyright} | ${url} | ${title}`;
+  exif[piexif.ExifIFD.DateTimeOriginal] = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15).replace('T', ' ');
+
+  const exifObj = { '0th': zeroth, Exif: exif };
+  return piexif.dump(exifObj);
+}
+
+function stringToUTF16Bytes(str) {
+  const bytes = [];
+  for (let i = 0; i < str.length; i++) {
+    const code = str.charCodeAt(i);
+    bytes.push(code & 0xff, (code >> 8) & 0xff);
+  }
+  bytes.push(0, 0);
+  return bytes;
+}
+
+// ============ PROCESS PIPELINE ============
+async function processAll() {
+  const mode = document.getElementById('rename-mode').value;
+
+  if (mode === 'ai') {
+    const ok = await generateAINames();
+    if (!ok) return;
+  }
+
+  const maxDim = parseInt(document.getElementById('max-dim').value);
+  const quality = parseFloat(document.getElementById('quality').value);
+  const ext = outputFormat === 'webp' ? '.webp' : '.jpg';
+  const mime = outputFormat === 'webp' ? 'image/webp' : 'image/jpeg';
+
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    if (img.status === 'done') continue;
+    img.status = 'processing';
+    render();
+
+    try {
+      const finalName = computeNewName(img, i, mode);
+      const { canvas } = await renderToCanvas(img.dataUrl, maxDim);
+      const blob = await new Promise(res => canvas.toBlob(res, mime, quality));
+
+      let finalBlob = blob;
+
+      if (mime === 'image/jpeg') {
+        const dataUrl = await blobToDataURL(blob);
+        const exifBytes = buildExifBytes(img, i, finalName);
+        const newDataUrl = piexif.insert(exifBytes, dataUrl);
+        finalBlob = dataURLToBlob(newDataUrl);
+      } else if (mime === 'image/webp') {
+        const xmpPacket = buildXMPPacket(img, i, finalName);
+        finalBlob = await injectXMPIntoWebP(blob, xmpPacket);
+      }
+
+      img.processedBlob = finalBlob;
+      img.processedSize = finalBlob.size;
+      img.finalName = finalName + ext;
+      img.status = 'done';
+    } catch (e) {
+      console.error(e);
+      img.status = 'error';
+    }
+    render();
+    updateStats();
+  }
+
+  if (images.filter(i => i.status === 'done').length === 1) {
+    const img = images.find(i => i.status === 'done');
+    downloadBlob(img.processedBlob, img.finalName);
+  } else {
+    await downloadAsZip();
+  }
+}
+
+function renderToCanvas(dataUrl, maxDim) {
+  return new Promise((res, rej) => {
+    const im = new Image();
+    im.onload = () => {
+      let w = im.naturalWidth, h = im.naturalHeight;
+      if (maxDim > 0) {
+        if (w > h && w > maxDim) { h = Math.round(h * maxDim / w); w = maxDim; }
+        else if (h >= w && h > maxDim) { w = Math.round(w * maxDim / h); h = maxDim; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(im, 0, 0, w, h);
+      res({ canvas });
+    };
+    im.onerror = rej;
+    im.src = dataUrl;
+  });
+}
+
+function blobToDataURL(blob) {
+  return new Promise((res, rej) => {
+    const fr = new FileReader();
+    fr.onload = () => res(fr.result);
+    fr.onerror = rej;
+    fr.readAsDataURL(blob);
+  });
+}
+
+function dataURLToBlob(dataUrl) {
+  const arr = dataUrl.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8 = new Uint8Array(n);
+  while (n--) u8[n] = bstr.charCodeAt(n);
+  return new Blob([u8], { type: mime });
+}
+
+// ============ XMP for WebP ============
+function buildXMPPacket(img, idx, finalName) {
+  const brand = escapeXML(document.getElementById('meta-brand').value);
+  const url = escapeXML(document.getElementById('meta-url').value);
+  const copyright = escapeXML(document.getElementById('meta-copyright').value);
+  const author = escapeXML(document.getElementById('meta-author').value);
+  const email = escapeXML(document.getElementById('meta-email').value);
+  const keywords = document.getElementById('meta-keywords').value.split(',').map(s => s.trim()).filter(Boolean);
+  const titleTpl = document.getElementById('meta-title-tpl').value;
+  const descTpl = document.getElementById('meta-desc-tpl').value;
+  const replacers = { name: finalName.replace(/-/g, ' '), brand, date: new Date().toISOString().slice(0, 10), index: String(idx + 1) };
+  const fill = (tpl) => { let r = tpl; for (const [k, v] of Object.entries(replacers)) r = r.replace(new RegExp('\\{' + k + '\\}', 'g'), v); return escapeXML(r); };
+  const title = fill(titleTpl);
+  const desc = fill(descTpl);
+  const kwXML = keywords.map(k => `<rdf:li>${escapeXML(k)}</rdf:li>`).join('');
+
+  return `<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="DigitalWheelhouse-1.0">
+ <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about=""
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+    xmlns:xmpRights="http://ns.adobe.com/xap/1.0/rights/"
+    xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/">
+   <dc:creator><rdf:Seq><rdf:li>${author}</rdf:li></rdf:Seq></dc:creator>
+   <dc:title><rdf:Alt><rdf:li xml:lang="x-default">${title}</rdf:li></rdf:Alt></dc:title>
+   <dc:description><rdf:Alt><rdf:li xml:lang="x-default">${desc}</rdf:li></rdf:Alt></dc:description>
+   <dc:rights><rdf:Alt><rdf:li xml:lang="x-default">${copyright}</rdf:li></rdf:Alt></dc:rights>
+   <dc:subject><rdf:Bag>${kwXML}</rdf:Bag></dc:subject>
+   <dc:publisher><rdf:Bag><rdf:li>${brand}</rdf:li></rdf:Bag></dc:publisher>
+   <dc:identifier>${url}</dc:identifier>
+   <xmpRights:Marked>True</xmpRights:Marked>
+   <xmpRights:WebStatement>${url}</xmpRights:WebStatement>
+   <xmpRights:Owner><rdf:Bag><rdf:li>${brand}</rdf:li></rdf:Bag></xmpRights:Owner>
+   <xmp:CreatorTool>${brand} SEO Image Processor</xmp:CreatorTool>
+   <xmp:CreateDate>${new Date().toISOString()}</xmp:CreateDate>
+   <photoshop:Credit>${brand} — ${url}</photoshop:Credit>
+   <photoshop:Source>${url}</photoshop:Source>
+   <photoshop:AuthorsPosition>${email}</photoshop:AuthorsPosition>
+  </rdf:Description>
+ </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="w"?>`;
+}
+
+function escapeXML(s) {
+  return String(s || '').replace(/[<>&"']/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&apos;' }[c]));
+}
+
+async function injectXMPIntoWebP(blob, xmpString) {
+  const buf = new Uint8Array(await blob.arrayBuffer());
+  const xmpBytes = new TextEncoder().encode(xmpString);
+
+  if (buf[0] !== 0x52 || buf[1] !== 0x49 || buf[2] !== 0x46 || buf[3] !== 0x46) return blob; // not RIFF
+
+  let pos = 12;
+  const chunks = [];
+  while (pos < buf.length - 8) {
+    const fourcc = String.fromCharCode(buf[pos], buf[pos+1], buf[pos+2], buf[pos+3]);
+    const size = buf[pos+4] | (buf[pos+5] << 8) | (buf[pos+6] << 16) | (buf[pos+7] << 24);
+    const payloadStart = pos + 8;
+    const payloadEnd = payloadStart + size;
+    const paddedEnd = payloadEnd + (size % 2);
+    chunks.push({ fourcc, payload: buf.slice(payloadStart, payloadEnd), paddedEnd });
+    pos = paddedEnd;
+  }
+
+  let width = 0, height = 0;
+  let hasAlpha = chunks.some(c => c.fourcc === 'ALPH');
+  let isAnim = chunks.some(c => c.fourcc === 'ANIM' || c.fourcc === 'ANMF');
+  const vp8 = chunks.find(c => c.fourcc === 'VP8 ');
+  const vp8l = chunks.find(c => c.fourcc === 'VP8L');
+  const vp8x = chunks.find(c => c.fourcc === 'VP8X');
+  if (vp8x) {
+    if (vp8x.payload[0] & 0x10) hasAlpha = true;
+    if (vp8x.payload[0] & 0x02) isAnim = true;
+    width = 1 + (vp8x.payload[4] | (vp8x.payload[5] << 8) | (vp8x.payload[6] << 16));
+    height = 1 + (vp8x.payload[7] | (vp8x.payload[8] << 8) | (vp8x.payload[9] << 16));
+  } else if (vp8) {
+    const p = vp8.payload;
+    width = ((p[7] << 8) | p[6]) & 0x3FFF;
+    height = ((p[9] << 8) | p[8]) & 0x3FFF;
+  } else if (vp8l) {
+    const p = vp8l.payload;
+    width = 1 + (((p[2] & 0x3F) << 8) | p[1]);
+    height = 1 + (((p[4] & 0x0F) << 10) | (p[3] << 2) | ((p[2] & 0xC0) >> 6));
+    if (p[4] & 0x10) hasAlpha = true;
+  }
+
+  const newVP8X = new Uint8Array(10);
+  newVP8X[0] = 0x04 | (hasAlpha ? 0x10 : 0) | (isAnim ? 0x02 : 0);
+  const wm1 = width - 1, hm1 = height - 1;
+  newVP8X[4] = wm1 & 0xff; newVP8X[5] = (wm1 >> 8) & 0xff; newVP8X[6] = (wm1 >> 16) & 0xff;
+  newVP8X[7] = hm1 & 0xff; newVP8X[8] = (hm1 >> 8) & 0xff; newVP8X[9] = (hm1 >> 16) & 0xff;
+
+  const out = [];
+  const writeChunk = (fourcc, payload) => {
+    const fcc = new Uint8Array(4);
+    for (let i = 0; i < 4; i++) fcc[i] = fourcc.charCodeAt(i);
+    out.push(fcc);
+    const sz = new Uint8Array(4);
+    const len = payload.length;
+    sz[0] = len & 0xff; sz[1] = (len >> 8) & 0xff; sz[2] = (len >> 16) & 0xff; sz[3] = (len >> 24) & 0xff;
+    out.push(sz);
+    out.push(payload);
+    if (len % 2 === 1) out.push(new Uint8Array([0]));
+  };
+
+  writeChunk('VP8X', newVP8X);
+  for (const c of chunks) {
+    if (c.fourcc === 'VP8X' || c.fourcc === 'XMP ') continue;
+    writeChunk(c.fourcc, c.payload);
+  }
+  writeChunk('XMP ', xmpBytes);
+
+  let total = 0;
+  for (const u of out) total += u.length;
+  const riff = new Uint8Array(12);
+  riff[0]=0x52; riff[1]=0x49; riff[2]=0x46; riff[3]=0x46;
+  const rsize = total + 4;
+  riff[4] = rsize & 0xff; riff[5] = (rsize >> 8) & 0xff; riff[6] = (rsize >> 16) & 0xff; riff[7] = (rsize >> 24) & 0xff;
+  riff[8]=0x57; riff[9]=0x45; riff[10]=0x42; riff[11]=0x50;
+
+  const finalParts = [riff, ...out];
+  return new Blob(finalParts, { type: 'image/webp' });
+}
+
+// ============ DOWNLOAD ============
+function downloadBlob(blob, name) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+async function downloadAsZip() {
+  const done = images.filter(i => i.status === 'done' && i.processedBlob);
+  if (done.length === 0) return;
+
+  const files = [];
+  for (const img of done) {
+    const data = new Uint8Array(await img.processedBlob.arrayBuffer());
+    files.push({ name: img.finalName, data });
+  }
+
+  const zip = makeZip(files);
+  const ts = new Date().toISOString().slice(0, 10);
+  downloadBlob(zip, `hill-country-interiors-images-${ts}.zip`);
+  showToast(`Downloaded ${done.length} processed images as ZIP`);
+}
+
+function makeZip(files) {
+  const crcTable = (() => {
+    const t = new Uint32Array(256);
+    for (let i = 0; i < 256; i++) {
+      let c = i;
+      for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      t[i] = c >>> 0;
+    }
+    return t;
+  })();
+  const crc32 = (buf) => {
+    let c = 0xFFFFFFFF;
+    for (let i = 0; i < buf.length; i++) c = crcTable[(c ^ buf[i]) & 0xFF] ^ (c >>> 8);
+    return (c ^ 0xFFFFFFFF) >>> 0;
+  };
+
+  const encoder = new TextEncoder();
+  const localParts = [];
+  const central = [];
+  let offset = 0;
+
+  for (const f of files) {
+    const nameBytes = encoder.encode(f.name);
+    const crc = crc32(f.data);
+    const size = f.data.length;
+
+    const lh = new Uint8Array(30 + nameBytes.length);
+    const dv = new DataView(lh.buffer);
+    dv.setUint32(0, 0x04034b50, true);
+    dv.setUint16(4, 20, true);
+    dv.setUint16(6, 0, true);
+    dv.setUint16(8, 0, true);
+    dv.setUint16(10, 0, true);
+    dv.setUint16(12, 0, true);
+    dv.setUint32(14, crc, true);
+    dv.setUint32(18, size, true);
+    dv.setUint32(22, size, true);
+    dv.setUint16(26, nameBytes.length, true);
+    dv.setUint16(28, 0, true);
+    lh.set(nameBytes, 30);
+
+    localParts.push(lh, f.data);
+
+    const cd = new Uint8Array(46 + nameBytes.length);
+    const cdv = new DataView(cd.buffer);
+    cdv.setUint32(0, 0x02014b50, true);
+    cdv.setUint16(4, 20, true);
+    cdv.setUint16(6, 20, true);
+    cdv.setUint16(8, 0, true);
+    cdv.setUint16(10, 0, true);
+    cdv.setUint16(12, 0, true);
+    cdv.setUint16(14, 0, true);
+    cdv.setUint32(16, crc, true);
+    cdv.setUint32(20, size, true);
+    cdv.setUint32(24, size, true);
+    cdv.setUint16(28, nameBytes.length, true);
+    cdv.setUint16(30, 0, true);
+    cdv.setUint16(32, 0, true);
+    cdv.setUint16(34, 0, true);
+    cdv.setUint16(36, 0, true);
+    cdv.setUint32(38, 0, true);
+    cdv.setUint32(42, offset, true);
+    cd.set(nameBytes, 46);
+
+    central.push(cd);
+    offset += lh.length + f.data.length;
+  }
+
+  const centralOffset = offset;
+  let centralSize = 0;
+  for (const c of central) centralSize += c.length;
+
+  const eocd = new Uint8Array(22);
+  const ev = new DataView(eocd.buffer);
+  ev.setUint32(0, 0x06054b50, true);
+  ev.setUint16(4, 0, true);
+  ev.setUint16(6, 0, true);
+  ev.setUint16(8, files.length, true);
+  ev.setUint16(10, files.length, true);
+  ev.setUint32(12, centralSize, true);
+  ev.setUint32(16, centralOffset, true);
+  ev.setUint16(20, 0, true);
+
+  return new Blob([...localParts, ...central, eocd], { type: 'application/zip' });
+}
+
+// ============ TOAST ============
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3500);
+}
+</script>
+</body>
+</html>
