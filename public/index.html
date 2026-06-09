@@ -678,7 +678,11 @@
           <option value="minimal">Minimal keywords (e.g. western-leather-sofa)</option>
         </select>
 
-        <label class="check-row"><input type="checkbox" id="ai-append-brand" checked onchange="render()"> Append brand name to the filename</label>
+        <label>Vendor / Product Brand (optional)</label>
+        <input type="text" id="ai-vendor" placeholder="e.g. Jason Scott Collection" oninput="render()">
+        <div class="hint">When filled, this is appended to each AI filename — e.g. ...-jason-scott-collection. Set it per batch for whichever vendor you're processing.</div>
+
+        <label class="check-row"><input type="checkbox" id="ai-append-brand" checked onchange="render()"> Also append the store brand (Hill Country Interiors)</label>
       </div>
 
       <div id="manual-hint" style="display:none">
@@ -943,6 +947,8 @@ function computeNewName(img, idx, mode) {
   if (mode === 'manual') return img.customName ? slugify(img.customName) : slugify(getBaseName(img.file.name));
   if (mode === 'ai') {
     let aiBase = img.aiSuggested || slugify(getBaseName(img.file.name));
+    const vendorSlug = slugify(document.getElementById('ai-vendor')?.value || '');
+    if (vendorSlug && !aiBase.includes(vendorSlug)) aiBase = `${aiBase}-${vendorSlug}`;
     const appendBrand = document.getElementById('ai-append-brand')?.checked;
     if (appendBrand) {
       const brandSlug = slugify(document.getElementById('meta-brand').value);
