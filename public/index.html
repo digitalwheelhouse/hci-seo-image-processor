@@ -624,13 +624,13 @@
 
       <label>Mode</label>
       <select id="rename-mode" onchange="updateRenameUI()">
-        <option value="pattern" selected>Pattern (template)</option>
-        <option value="ai">AI suggests names (uses Claude)</option>
+        <option value="pattern">Pattern (template)</option>
+        <option value="ai" selected>AI suggests names (uses Claude)</option>
         <option value="manual">Manual one-by-one</option>
         <option value="original">Keep original names</option>
       </select>
 
-      <div id="pattern-controls">
+      <div id="pattern-controls" style="display:none">
         <label>Filename Pattern</label>
         <input type="text" id="pattern" value="{base}-{manufacturer}-{color}-{seq}">
         <div class="pattern-help">
@@ -657,7 +657,7 @@
         <input type="text" id="ph-room" placeholder="living-room, dining-room, bedroom, lodge...">
       </div>
 
-      <div id="ai-controls" style="display:none">
+      <div id="ai-controls">
         <div class="notice">
           <div class="notice-label">Secure AI naming</div>
           <p>AI naming examines each image and suggests an SEO-friendly filename. The request runs through this Digital Wheelhouse server, so the Anthropic API key stays server-side — never exposed in the browser.</p>
