@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital Wheelhouse — SEO Image Processor · Hill Country Interiors</title>
+<title>Digital Wheelhouse — SEO Image Processor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -542,7 +542,7 @@
   <div class="explainer-grid">
     <div>
       <h3>Descriptive filenames get found</h3>
-      <p>Google and Google Images read the filename. <code>rustic-leather-recliner-western.webp</code> tells search engines exactly what the photo is — <code>IMG_4821.jpg</code> tells them nothing. Properly named images are far more likely to surface in search and pull shoppers and readers to your product and blog pages.</p>
+      <p>Google and Google Images read the filename. <code>cognac-leather-sectional-living-room.webp</code> tells search engines exactly what the photo is — <code>IMG_4821.jpg</code> tells them nothing. Properly named images are far more likely to surface in search and pull shoppers and readers to your product and blog pages.</p>
     </div>
     <div>
       <h3>Lighter images load faster</h3>
@@ -561,22 +561,22 @@
       <h2>① Ownership &amp; SEO Metadata</h2>
 
       <label>Brand / Company</label>
-      <input type="text" id="meta-brand" value="Hill Country Interiors">
+      <input type="text" id="meta-brand" value="Leather Showroom">
 
       <label>Website URL</label>
-      <input type="url" id="meta-url" value="https://hillcountryinteriors.com">
+      <input type="url" id="meta-url" value="https://leatherfurniture.com">
 
       <label>Copyright Notice</label>
-      <input type="text" id="meta-copyright" value="© 2026 Hill Country Interiors. All rights reserved.">
+      <input type="text" id="meta-copyright" value="© 2026 Leather Showroom. All rights reserved.">
 
       <label>Author / Creator</label>
-      <input type="text" id="meta-author" value="Hill Country Interiors">
+      <input type="text" id="meta-author" value="Leather Showroom">
 
       <label>Contact Email</label>
-      <input type="text" id="meta-email" value="brandon@hillcountryinteriors.com">
+      <input type="text" id="meta-email" value="sales@leatherfurniture.com">
 
       <label>Default Keywords (comma-separated)</label>
-      <textarea id="meta-keywords">upscale leather furniture, rustic furniture, Western furniture, old-world furniture, Hill Country Interiors</textarea>
+      <textarea id="meta-keywords">leather furniture, premium leather sofa, top grain leather, leather sectional, Leather Showroom</textarea>
     </div>
 
     <div class="panel" style="margin-top:20px">
@@ -584,29 +584,29 @@
       <p class="hint" style="margin-top:-8px">These get embedded individually. Use placeholders to auto-fill from filename.</p>
 
       <label>Title Template</label>
-      <input type="text" id="meta-title-tpl" value="{name} | Hill Country Interiors">
+      <input type="text" id="meta-title-tpl" value="{name} | Premium Leather Furniture | Leather Showroom">
 
       <label>Description / Alt-Text Template</label>
-      <textarea id="meta-desc-tpl">{name} — from Hill Country Interiors. Upscale leather, rustic, Western, and old-world furniture, made to last.</textarea>
+      <textarea id="meta-desc-tpl">{name} — handcrafted premium leather furniture from Leather Showroom. Top-grain leather, made to last.</textarea>
       <div class="pattern-help">Placeholders: <code>{name}</code> <code>{brand}</code> <code>{date}</code> <code>{index}</code></div>
     </div>
 
     <div class="panel" style="margin-top:20px">
-      <h2>③ Output Settings (Web-optimized)</h2>
+      <h2>③ Output Settings (Shopify-optimized)</h2>
 
       <label>Format</label>
       <div class="pill-row" id="format-pills">
         <span class="pill active" data-format="webp">WebP (recommended)</span>
         <span class="pill" data-format="jpeg">JPEG</span>
       </div>
-      <div class="hint" style="margin-top:8px">WebP is ~30% smaller than JPEG and loads faster → better Core Web Vitals → better SEO. Supported everywhere modern.</div>
+      <div class="hint" style="margin-top:8px">WebP is ~30% smaller than JPEG. Shopify supports both. WebP loads faster → better Core Web Vitals → better SEO.</div>
 
       <label>Max Dimension (longest side)</label>
       <select id="max-dim">
-        <option value="2048" selected>2048px — High-res (zoomable)</option>
-        <option value="2400">2400px — Hero / full-bleed</option>
+        <option value="2048" selected>2048px — Shopify recommended (zoomable)</option>
+        <option value="2400">2400px — High-res hero / PDP</option>
         <option value="1600">1600px — Standard product</option>
-        <option value="1200">1200px — Collection / blog thumbnails</option>
+        <option value="1200">1200px — Collection thumbnails</option>
         <option value="800">800px — Small / mobile</option>
         <option value="0">Don't resize</option>
       </select>
@@ -624,13 +624,13 @@
 
       <label>Mode</label>
       <select id="rename-mode" onchange="updateRenameUI()">
-        <option value="pattern">Pattern (template)</option>
-        <option value="ai" selected>AI suggests names (uses Claude)</option>
+        <option value="pattern" selected>Pattern (template)</option>
+        <option value="ai">AI suggests names (uses Claude)</option>
         <option value="manual">Manual one-by-one</option>
         <option value="original">Keep original names</option>
       </select>
 
-      <div id="pattern-controls" style="display:none">
+      <div id="pattern-controls">
         <label>Filename Pattern</label>
         <input type="text" id="pattern" value="{base}-{manufacturer}-{color}-{seq}">
         <div class="pattern-help">
@@ -641,23 +641,23 @@
           <code>{date}</code> <code>{brand}</code>
         </div>
 
-        <label>Manufacturer / Maker (optional)</label>
-        <input type="text" id="ph-manufacturer" placeholder="maker or collection name...">
+        <label>Manufacturer (optional)</label>
+        <input type="text" id="ph-manufacturer" placeholder="omnia, eleanor-rigby, natuzzi-editions...">
 
-        <label>Color / Finish (optional)</label>
-        <input type="text" id="ph-color" placeholder="cognac, espresso, walnut, tan...">
+        <label>Color (optional)</label>
+        <input type="text" id="ph-color" placeholder="cognac, sage, espresso...">
 
         <label>Style (optional)</label>
-        <input type="text" id="ph-style" placeholder="rustic, western, old-world, upscale-leather...">
+        <input type="text" id="ph-style" placeholder="barrett, joy, karma...">
 
         <label>Product Type (optional)</label>
-        <input type="text" id="ph-product" placeholder="sofa, recliner, dining-table, console, bed...">
+        <input type="text" id="ph-product" placeholder="sofa, sectional, recliner, loveseat...">
 
         <label>Room (optional)</label>
-        <input type="text" id="ph-room" placeholder="living-room, dining-room, bedroom, lodge...">
+        <input type="text" id="ph-room" placeholder="living-room, family-room...">
       </div>
 
-      <div id="ai-controls">
+      <div id="ai-controls" style="display:none">
         <div class="notice">
           <div class="notice-label">Secure AI naming</div>
           <p>AI naming examines each image and suggests an SEO-friendly filename. The request runs through this Digital Wheelhouse server, so the Anthropic API key stays server-side — never exposed in the browser.</p>
@@ -665,9 +665,9 @@
 
         <label>Naming Style</label>
         <select id="ai-style">
-          <option value="ecom">Ecom-SEO (e.g. rustic-leather-recliner-western-lodge)</option>
-          <option value="descriptive">Descriptive (e.g. distressed-oak-dining-table-old-world)</option>
-          <option value="minimal">Minimal keywords (e.g. western-leather-sofa)</option>
+          <option value="ecom">Ecom-SEO (e.g. cognac-leather-sectional-with-chaise)</option>
+          <option value="descriptive">Descriptive (e.g. brown-leather-couch-living-room)</option>
+          <option value="minimal">Minimal keywords (e.g. leather-sofa-cognac)</option>
         </select>
       </div>
 
@@ -1070,6 +1070,7 @@ async function processAll() {
 
   for (let i = 0; i < images.length; i++) {
     const img = images[i];
+    if (img.status === 'done') continue;
     img.status = 'processing';
     render();
 
@@ -1299,7 +1300,7 @@ async function downloadAsZip() {
 
   const zip = makeZip(files);
   const ts = new Date().toISOString().slice(0, 10);
-  downloadBlob(zip, `hill-country-interiors-images-${ts}.zip`);
+  downloadBlob(zip, `leather-showroom-images-${ts}.zip`);
   showToast(`Downloaded ${done.length} processed images as ZIP`);
 }
 
