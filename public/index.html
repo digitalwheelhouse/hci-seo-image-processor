@@ -677,16 +677,18 @@
           <option value="descriptive">Descriptive (e.g. distressed-oak-dining-table-old-world)</option>
           <option value="minimal">Minimal keywords (e.g. western-leather-sofa)</option>
         </select>
-
-        <label>Vendor / Product Brand (optional)</label>
-        <input type="text" id="ai-vendor" placeholder="e.g. Jason Scott Collection" oninput="render()">
-        <div class="hint">When filled, this is appended to each AI filename — e.g. ...-jason-scott-collection. Set it per batch for whichever vendor you're processing.</div>
-
-        <label class="check-row"><input type="checkbox" id="ai-append-brand" checked onchange="render()"> Also append the store brand (Hill Country Interiors)</label>
       </div>
 
       <div id="manual-hint" style="display:none">
         <p class="hint">After uploading, you'll see an input next to each image to type its new name.</p>
+      </div>
+
+      <div id="brand-append-controls">
+        <label>Vendor / Product Brand (optional)</label>
+        <input type="text" id="ai-vendor" placeholder="e.g. Jason Scott Collection" oninput="render()">
+        <div class="hint">When filled, this is appended to each filename — e.g. ...-jason-scott-collection. Set it per batch for whichever vendor you're processing.</div>
+
+        <label class="check-row"><input type="checkbox" id="ai-append-brand" checked onchange="render()"> Also append the store brand (Hill Country Interiors)</label>
       </div>
     </div>
   </section>
@@ -818,6 +820,7 @@ function updateRenameUI() {
   document.getElementById('pattern-controls').style.display = mode === 'pattern' ? 'block' : 'none';
   document.getElementById('ai-controls').style.display = mode === 'ai' ? 'block' : 'none';
   document.getElementById('manual-hint').style.display = mode === 'manual' ? 'block' : 'none';
+  document.getElementById('brand-append-controls').style.display = (mode === 'ai' || mode === 'manual') ? 'block' : 'none';
   render();
 }
 
@@ -942,19 +945,27 @@ function getBaseName(filename) {
   return filename.replace(/\.[^.]+$/, '');
 }
 
+function appendBrandBits(base) {
+  let out = base;
+  const vendorSlug = slugify(document.getElementById('ai-vendor')?.value || '');
+  if (vendorSlug && !out.includes(vendorSlug)) out = `${out}-${vendorSlug}`;
+  const appendBrand = document.getElementById('ai-append-brand')?.checked;
+  if (appendBrand) {
+    const brandSlug = slugify(document.getElementById('meta-brand').value);
+    if (brandSlug && !out.includes(brandSlug)) out = `${out}-${brandSlug}`;
+  }
+  return out;
+}
+
 function computeNewName(img, idx, mode) {
   if (mode === 'original') return slugify(getBaseName(img.file.name));
-  if (mode === 'manual') return img.customName ? slugify(img.customName) : slugify(getBaseName(img.file.name));
+  if (mode === 'manual') {
+    const base = img.customName ? slugify(img.customName) : slugify(getBaseName(img.file.name));
+    return appendBrandBits(base);
+  }
   if (mode === 'ai') {
-    let aiBase = img.aiSuggested || slugify(getBaseName(img.file.name));
-    const vendorSlug = slugify(document.getElementById('ai-vendor')?.value || '');
-    if (vendorSlug && !aiBase.includes(vendorSlug)) aiBase = `${aiBase}-${vendorSlug}`;
-    const appendBrand = document.getElementById('ai-append-brand')?.checked;
-    if (appendBrand) {
-      const brandSlug = slugify(document.getElementById('meta-brand').value);
-      if (brandSlug && !aiBase.includes(brandSlug)) aiBase = `${aiBase}-${brandSlug}`;
-    }
-    return aiBase;
+    const base = img.aiSuggested || slugify(getBaseName(img.file.name));
+    return appendBrandBits(base);
   }
 
   // pattern
