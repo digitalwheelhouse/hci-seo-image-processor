@@ -391,6 +391,14 @@
   }
   .footer-note strong { color: var(--teal); font-weight: 500; }
 
+  .check-row {
+    display: flex; align-items: center; gap: 9px;
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.04em; text-transform: none;
+    color: var(--mid-gray); margin: 16px 0 4px; cursor: pointer;
+  }
+  .check-row input { width: auto; accent-color: var(--teal); cursor: pointer; }
+
   /* ===== Why-this-matters explainer ===== */
   .explainer {
     background: linear-gradient(135deg, var(--charcoal) 0%, rgba(0,224,255,0.05) 100%);
@@ -669,6 +677,8 @@
           <option value="descriptive">Descriptive (e.g. distressed-oak-dining-table-old-world)</option>
           <option value="minimal">Minimal keywords (e.g. western-leather-sofa)</option>
         </select>
+
+        <label class="check-row"><input type="checkbox" id="ai-append-brand" checked onchange="render()"> Append brand name to the filename</label>
       </div>
 
       <div id="manual-hint" style="display:none">
@@ -931,7 +941,15 @@ function getBaseName(filename) {
 function computeNewName(img, idx, mode) {
   if (mode === 'original') return slugify(getBaseName(img.file.name));
   if (mode === 'manual') return img.customName ? slugify(img.customName) : slugify(getBaseName(img.file.name));
-  if (mode === 'ai') return img.aiSuggested || slugify(getBaseName(img.file.name));
+  if (mode === 'ai') {
+    let aiBase = img.aiSuggested || slugify(getBaseName(img.file.name));
+    const appendBrand = document.getElementById('ai-append-brand')?.checked;
+    if (appendBrand) {
+      const brandSlug = slugify(document.getElementById('meta-brand').value);
+      if (brandSlug && !aiBase.includes(brandSlug)) aiBase = `${aiBase}-${brandSlug}`;
+    }
+    return aiBase;
+  }
 
   // pattern
   const pattern = document.getElementById('pattern').value || '{base}-{seq}';
@@ -1070,7 +1088,6 @@ async function processAll() {
 
   for (let i = 0; i < images.length; i++) {
     const img = images[i];
-    if (img.status === 'done') continue;
     img.status = 'processing';
     render();
 
